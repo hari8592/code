@@ -1,0 +1,221 @@
+#Array : similar collection of elements
+
+-fixed size
+-strongly types
+
+Collections and Generics Collections
+
+
+collection - grouping of elements
+
+
+if you wanted to use c# collections 
+
+you have to import namespace System.Colletions;
+	
+#Types of Collections:
+
+-index based collections  
+
+	here elements get access by your index
+	  
+	#Array,
+	#ArrayList
+
+-Key-Value pair based collections:
+	Hashtable,SortedList
+-Priotizied Collections
+	Stack,Queue
+-specialized collections
+	string
+
+
+Array in c#
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            //datatype [] variable name = new datatype[size]
+            int[] numArray = new int[5];
+            numArray[0] = 10;
+            numArray[3] = 45;
+
+            //not allowed
+            numArray[6] = 50;
+            //getting index 0 from numArray 
+            int temp = numArray[0];
+
+            //not allowed as it similar collections
+            //numArray[2] = "str";
+            Console.WriteLine(temp);
+
+            Console.WriteLine("Hello World!");
+            Console.ReadLine();
+        }
+    }
+
+#ArrayList:
+
+if you wanted to work with ArrayList 
+please import 
+
+using System.Collections;
+
+#Creation of ArrayList
+
+ArrayList lstNos = new ArrayList();
+
+In ArrayList if you wanted to add element 
+
+Use .Add() method
+
+ //ArrayList variable = new ArrayList();
+            ArrayList lstNos = new ArrayList();
+            //added integer value
+            lstNos.Add(2);
+            lstNos.Add(2.34);
+            lstNos.Add('c');
+            lstNos.Add("string");
+            lstNos.Add(true);
+            lstNos.Add(false);
+
+Internally .Add used object type 
+Internally whenever you're working with ArrayList, it performs  boxing and unboxing
+this can slow down your performance with ArrayList over Array
+because Arrays are strongly typed and there is no memory performance 
+impacted as there no moving from stack memory to heap memory
+
+
+System.Object:  
+		ultimate Base class for everyone
+		this is root of your type(datatype) in .NET
+
+
+e.g for object datatype understading
+
+ int i = 10;
+ decimal d = 10.23M;
+ object o = i;
+ o = d;
+ object o1 = "string";
+ Console.WriteLine(o1);
+ Console.WriteLine(o);
+
+#Boxing and UnBoxing  
+
+boxing (V-R) => Value type (stack)  move to Ref Type (Heap memory)
+unboxing (R-V) => Ref Type (Heap memory) move  to Value Type( Stack Memory)
+
+e.g
+            //value type
+            int i = 10;
+            object o;
+            int y;
+            object o1 = 34;
+            o = i;       //boxing here [V-R] means moving from stack memory to heap memory
+            y =(int)o1;    // unboxing here [R-V] means moving from heap memory to stack memory
+            Console.WriteLine(y);
+
+Final Code Of ArrayList:
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            //syntax:
+            //ArrayList variable = new ArrayList();
+            ArrayList a = new ArrayList();
+            //added integer value
+            a.Add(2);    // 0
+            a.Add(2.34);  //1
+            a.Add('c');   //2
+            a.Add("string");   //3
+            a.Add(true);  //4
+            a.Add(false);  //5
+
+            //browse or reading data using foreach
+            foreach (var item in a)
+            {
+                Console.WriteLine(item);
+            }
+            object o1 = a[3];
+            string o2 =Convert.ToString(a[3]);
+
+            Console.WriteLine(o1);
+            Console.WriteLine(o2);
+
+            ////value type
+            //int i = 10;
+            //object o;
+            //int y;
+            //object o1 = 34;
+            //o = i;       //boxing here [V-R] means moving from stack memory to heap memory
+            //y =(int)o1;    // unboxing here [R-V] means moving from heap memory to stack memory
+            //Console.WriteLine(y);
+
+
+            Console.WriteLine("Hello World!");
+            Console.ReadLine();
+        }
+    }
+
+
+
+#Key-Value pair based collections:
+
+some times it can be difficult to remember index or get that via index 
+here we will use a key instead of your index
+
+Hashtable
+
+to implement hashtable you need System.Collections
+
+Creating Hashtable
+
+Hastable ht=new Hashtable();
+
+if you want to add element in your hashtable 
+
+you will use .Add() method
+
+.Add(object key,object? value)
+
+//here  oCountryMaster.CountryCode is key, and value is oCountryMaster.CountryName
+
+ht.Add(oCountryMaster.CountryCode, oCountryMaster.CountryName);
+
+//here  oCountryMaster.CountryCode is key, and value is complete oCountryMaster  type i.e. CountryMaster (CountryCode,CountryName)  
+ht.Add(oCountryMaster.CountryCode, oCountryMaster);
+
+//retriving element based on key
+
+string value1=(string)ht[oCountryMaster.CountryCode];
+
+
+
+
+
+
+
+
+
+
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

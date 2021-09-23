@@ -1,0 +1,164 @@
+Generics and Generics Collections
+
+
+Generics:
+
+helps us to separate logic from your datatype
+allow us to write code in generalised
+
+
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            Check obj = new Check();
+            bool IsCompare=obj.Compare(10, 20);
+            bool IsCompare1 = obj.Compare1("ABC","ABC");
+
+            Console.WriteLine(IsCompare);
+            Console.ReadLine();
+            
+        }
+    }
+
+    public class Check
+    {
+        public bool Compare(int i,int y)
+        {
+            if (i.Equals(y))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool Compare1(string a,string b)
+        {
+            if (i.Equals(y))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+    }
+
+
+above code is not generalised  and we are not able to spearate logic
+based on datatype
+
+so let's apply generics
+
+
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+            Check<int> obj = new Check<int>();
+            obj.Compare(10, 20);
+
+            Check<string> obj1 = new Check<string>();
+            obj1.Compare("a", "b");
+
+            Check<double> obj2 = new Check<double>();
+            obj2.Compare(10.34, 10.34);
+
+
+            Console.ReadLine();
+            
+        }
+    }
+
+    public class Check<UnknownType>
+    {
+        public bool Compare(UnknownType i, UnknownType y)
+        {
+            if (i.Equals(y))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+
+Generics Collections
+
+if you apply generics on your collections it will be your generics collections
+
+
+        .NET Collection       =>applied generics => so it become        Generics Collections    
+
+	ArrayList  							List(Generic)  = List<T>
+	Hashtable 							Dictionary(Generic) =  Dictionary<Tkey,Tvalue>
+	Stack								Stack(Generic)= Stakc<T>        
+	Queues								Queue(Generics)=Queue<T>
+
+if you wanted to use a Generics Collections
+
+import namespace 
+using System.Collections.Generic;
+
+
+List<T>
+
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> lstNos = new List<int>();
+            lstNos.Add(1);
+            lstNos.Add(2);
+
+            List<string> lstString = new List<string>();
+            lstString.Add("a");
+            lstString.Add("b");
+
+
+            string s = lstString[1];
+
+
+            Console.WriteLine("Hello World!");
+        }
+    }
+
+
+Dictionary:
+class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<int, string> ldtDic = new Dictionary<int, string>();
+            ldtDic.Add(1, "IND");
+            ldtDic.Add(2, "USA");
+
+            foreach (int key in ldtDic.Keys)
+            {
+                Console.WriteLine(ldtDic[key]);
+            }
+            Console.ReadLine();
+            Console.WriteLine("Hello World!");
+        }
+    }
+
+
+
+HW. 
+
+1) Perform add,remove,update,read operaiton on list 
+2) Perform add,remove,update,read operaiton on Dictionary 
+
+3) Stack,Queue

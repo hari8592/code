@@ -1,0 +1,235 @@
+
+
+Interfaces Collections:
+
+
+IEnumerable  
+ICollection
+IList Or IDictionary
+
+
+					IEnumarable   (IEnumerator)
+					   -ICollection
+					
+				      IList ( IEnumerable +  ICollection) or IDictionary ( IEnumerable +  ICollection)
+Consider below e.g
+
+
+ public class Customer
+    {
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+
+        public ArrayList LoadCustomers()
+        {
+            ArrayList temp = new ArrayList();
+            Customer c1 = new Customer();
+            c1.CustomerCode = "c100";
+            c1.CustomerName = "Sachin";
+            temp.Add(c1);
+            c1 = new Customer();
+            c1.CustomerCode = "c200";
+            c1.CustomerName = "Sourav";
+            temp.Add(c1);
+            return temp;
+        }
+    }
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            Customer c = new Customer();
+            ArrayList a = c.LoadCustomers();
+            a.Add(2);
+            a.Add(3);
+
+            Console.WriteLine("Hello World!");
+        }
+    }
+
+
+
+In above code As we are using ArrayList while receiving elements from
+LoadCustomers() here you exposing .Add(),.Remove()
+which we dont want onwards
+
+we want our collections should be modified by anyone 
+in short we need to stop the acess for adding or removing 
+
+
+
+
+IEnumerable   - used for iterating over collections
+
+
+public class Customer
+    {
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+
+        public IEnumerable LoadCustomers()
+        {
+            ArrayList temp = new ArrayList();
+            Customer c1 = new Customer();
+            c1.CustomerCode = "c100";
+            c1.CustomerName = "Sachin";
+            temp.Add(c1);
+            c1 = new Customer();
+            c1.CustomerCode = "c200";
+            c1.CustomerName = "Sourav";
+            temp.Add(c1);
+            return (IEnumerable)temp;
+        }
+    }
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            Customer c = new Customer();
+            IEnumerable a = c.LoadCustomers();
+            //a.Add(2);   //not possible due to IEnumerable
+            //a.Remove(3); //not possible due to IEnumerable
+            Console.WriteLine("Hello World!");
+        }
+    }
+
+
+ICollection:
+
+if you want to get no of items from collection 
+you choose this Interface 
+
+Browsing through the list  + count property
+
+
+public class Customer
+    {
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+
+        public ICollection LoadCustomers()
+        {
+            ArrayList temp = new ArrayList();
+            Customer c1 = new Customer();
+            c1.CustomerCode = "c100";
+            c1.CustomerName = "Sachin";
+            temp.Add(c1);
+            c1 = new Customer();
+            c1.CustomerCode = "c200";
+            c1.CustomerName = "Sourav";
+            temp.Add(c1);
+            return (ICollection)temp;
+        }
+    }
+
+
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            Customer c = new Customer();
+            ICollection a = c.LoadCustomers();
+            int cd=a.Count;
+            foreach (Customer customer in a)
+            {
+                Console.WriteLine(customer.CustomerCode);
+                Console.WriteLine(customer.CustomerName);
+            }
+        }
+    }
+
+
+IList:      For IList you can use (ArrayList)(List) 
+Browsing through the list  + count property + Add() or Remove()
+
+
+Code :
+
+ public class Customer
+    {
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+
+        public IList LoadCustomers()
+        {
+            ArrayList temp = new ArrayList();
+            Customer c1 = new Customer();
+            c1.CustomerCode = "c100";
+            c1.CustomerName = "Sachin";
+            temp.Add(c1);
+            c1 = new Customer();
+            c1.CustomerCode = "c200";
+            c1.CustomerName = "Sourav";
+            temp.Add(c1);
+            return (IList)temp;
+        }
+    }
+
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+            Customer c = new Customer();
+            IList a = c.LoadCustomers();
+            a.Add(1);
+            a.Add(2);
+            a.Remove(2);
+            foreach (Customer customer in a)
+            {
+                Console.WriteLine(customer.CustomerCode);
+                Console.WriteLine(customer.CustomerName);
+            }
+        }
+    }
+
+
+IDictionary:   For IDictionary you can use  Hashtable or Dictionary
+
+ public class Customer
+    {
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+
+        public IDictionary LoadCustomers()
+        {
+            Hashtable temp = new Hashtable();
+            Customer c1 = new Customer();
+            c1.CustomerCode = "c100";
+            c1.CustomerName = "Sachin";
+            temp.Add(c1.CustomerCode, c1);
+            c1 = new Customer();
+            c1.CustomerCode = "c200";
+            c1.CustomerName = "Sourav";
+            temp.Add(c1.CustomerCode, c1);
+            return (IDictionary)temp;
+        }
+    }
+
+  class Program
+    {
+        static void Main(string[] args)
+        {
+            Customer c = new Customer();
+            IDictionary a = c.LoadCustomers();
+            a.Add(1, c);
+            foreach (Customer customer in a)
+            {
+                Console.WriteLine(customer.CustomerCode);
+                Console.WriteLine(customer.CustomerName);
+            }
+        }
+    }
+
+
+
+IEnumerable :
+
+
+
+			
+
+

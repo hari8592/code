@@ -1,0 +1,211 @@
+day5_continue
+
+--taking input and adding data into list
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+
+            List<int> lstNos = new List<int>();
+            for (int i = 0; i < 10; i++)
+            {
+                int j = Convert.ToInt32(Console.ReadLine());
+                lstNos.Add(j);
+            }
+            foreach (int item in lstNos)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ReadLine();
+        }
+    }
+
+
+IEumerable
+
+foreach
+
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+
+            List<int> lstNos = new List<int>();
+            lstNos.Add(1);
+            lstNos.Add(2);
+            lstNos.Add(3);
+            lstNos.Add(4);
+            lstNos.Add(5);
+            lstNos.Add(6);
+            lstNos.Add(7);
+            lstNos.Add(8);
+            lstNos.Add(9);
+            lstNos.Add(10);
+
+            IEnumerable<int> ienm = (IEnumerable<int>)lstNos;
+
+            foreach (int item in ienm)
+            {
+                Console.WriteLine(item);
+            }
+
+
+            Console.ReadLine();
+        }
+    }
+
+Internally IEumerable uses IEnumerator
+
+
+IEnumerator e.g: 
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+
+            List<int> lstNos = new List<int>();
+            lstNos.Add(1);
+            lstNos.Add(2);
+            lstNos.Add(3);
+            lstNos.Add(4);
+            lstNos.Add(5);
+            lstNos.Add(6);
+            lstNos.Add(7);
+            lstNos.Add(8);
+            lstNos.Add(9);
+            lstNos.Add(10);
+
+            IEnumerator<int> ienmtr = lstNos.GetEnumerator();
+
+            while (ienmtr.MoveNext())
+            {
+                Console.WriteLine(ienmtr.Current.ToString());
+            }
+
+            Console.ReadLine();
+        }
+    }
+
+
+
+Let's see the difference:
+
+
+remebering the states
+
+
+
+code using IEnumertor
+
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+
+            List<int> lstNos = new List<int>();
+            lstNos.Add(1);
+            lstNos.Add(2);
+            lstNos.Add(3);
+            lstNos.Add(4);
+            lstNos.Add(5);
+            lstNos.Add(6);
+            lstNos.Add(7);
+            lstNos.Add(8);
+            lstNos.Add(9);
+            lstNos.Add(10);
+
+            IEnumerator<int> ienmtr = lstNos.GetEnumerator();
+            PrintNosUpto5(ienmtr);
+
+            Console.ReadLine();
+        }
+        static void PrintNosUpto5(IEnumerator<int> ienumtr)
+        {
+            while (ienumtr.MoveNext())
+            {
+                Console.WriteLine(ienumtr.Current.ToString());
+                if (ienumtr.Current >= 5)
+                    PrintNosFrom5to10(ienumtr);
+            }
+
+        }
+        static void PrintNosFrom5to10(IEnumerator<int> ienumtr)
+        {
+            while (ienumtr.MoveNext())
+            {
+                Console.WriteLine(ienumtr.Current.ToString());
+            }
+        }
+    }
+
+
+using IEnumerable
+
+
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+
+            List<int> lstNos = new List<int>();
+            lstNos.Add(1);
+            lstNos.Add(2);
+            lstNos.Add(3);
+            lstNos.Add(4);
+            lstNos.Add(5);
+            lstNos.Add(6);
+            lstNos.Add(7);
+            lstNos.Add(8);
+            lstNos.Add(9);
+            lstNos.Add(10);
+
+            IEnumerable<int> ienmtr = (IEnumerable<int>)lstNos;
+            PrintNosUpto5(ienmtr);
+
+            Console.ReadLine();
+        }
+        static void PrintNosUpto5(IEnumerable<int> ienumtr)
+        {
+            foreach (int item in ienumtr)
+            {
+                Console.WriteLine(item);
+                if (item >= 5)
+                    PrintNosFrom5to10(ienumtr);
+            }
+        }
+        static void PrintNosFrom5to10(IEnumerable<int> ienumtr)
+        {
+            foreach (int item in ienumtr)
+            {
+                Console.WriteLine(item);
+            }
+        }
+    }
+
+
+IEumerable  does not remember the states but IEnumerator remebers the state
+
+When to use what?
+
+when you just iterate collection where remembering the values is not imp
+you will go for  IEumerable
+
+
+when you just iterate collection where remembering the values is imp
+you will go for  IEumerator
+
+IEumerable -foreach
+IEnumator -While
+
+IEumerable is sugar coated with  IEnumator 
+
+
+
+
+

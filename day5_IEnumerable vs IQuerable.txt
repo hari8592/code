@@ -1,0 +1,63 @@
+day5_IEnumerable vs IQuerable
+
+diff major  - filter logic execution
+
+
+IEumerable
+
+IQueyable 
+
+Whatever IEumerable can do ,IQuerable will also do
+
+IEnumerable<Department> oDept= db.Departments;
+            IEnumerable<Department> filterDept = oDept.Where(a => a.DepartmentId == 2).ToList<Department>();
+
+
+query using profiler that we get
+
+SELECT 
+    [Extent1].[DepartmentId] AS [DepartmentId], 
+    [Extent1].[DepartmentName] AS [DepartmentName]
+    FROM [dbo].[Department] AS [Extent1]
+
+above  query wiill get ALL records from DB
+then at client side filter i.e your  Where will get applied 
+
+
+Strange to from c# code we are adding where clause 
+but where is not seen in above query
+
+
+
+
+
+
+Now lets use IQuerable
+
+
+  //IQueryable
+            IQueryable<Department> oDept= db.Departments;
+            IEnumerable<Department> filterDept = oDept.Where(a => a.DepartmentId == 2).ToList<Department>();
+
+
+
+	SELECT 
+    [Extent1].[DepartmentId] AS [DepartmentId], 
+    [Extent1].[DepartmentName] AS [DepartmentName]
+    FROM [dbo].[Department] AS [Extent1]
+    WHERE 2 = [Extent1].[DepartmentId]
+
+
+
+//here we are getting records with filteration
+
+
+
+//when to use what
+
+IQueryable -get list of students,employess  ( DB specific)   
+IEnumerable - In Memeory Collections
+
+
+
+

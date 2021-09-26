@@ -1,0 +1,245 @@
+delegates
+
+delegates is a pointer to function
+delegates mostly used in call backs for communication
+
+
+e.g
+
+
+class Program
+    {
+        //creation of delegate
+        public delegate void SomeDelegate();
+        //create object of delegate
+        public static SomeDelegate objDel;
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Delegate Demo");
+            //pointing delegate to function
+            objDel = Fun1;
+            objDel();   //or  objDel.Invoke();
+
+
+            //Fun1();
+            Console.ReadLine();
+        }
+        static void Fun1()
+        {
+            Console.WriteLine("From Fun1");
+        }
+    }
+
+
+Now the question is at end we are just calling Fun1()
+so that also can be possible by calling Fun1 () directly
+here we are indirectly calling Fun1() via delegates
+
+so what is the real use of delegate?
+
+
+
+
+
+
+Synchronous
+
+
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Main Method Starts");
+            SomeClass x = new SomeClass();
+            x.HugeProcess();
+            Console.WriteLine("Main Method Ends");
+            Console.ReadLine();
+        }
+    }
+    public class SomeClass
+    {
+        public void HugeProcess()
+        {
+            for (int i = 0; i < 10000; i++)
+            {
+                Thread.Sleep(5000);  ///it will sleep for 5 sec
+            }
+        }
+    }
+
+
+
+
+Real use of delegates 
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Main Method Starts");
+            SomeClass x = new SomeClass();
+            //attaching the function Receiver to delegate
+            x.sender = Receiver;
+            Thread t = new Thread(new ThreadStart(x.HugeProcess));
+            t.Start();
+            Console.WriteLine("Main Method Ends");
+            Console.ReadLine();
+        }
+        static void Receiver(int j)
+        {
+            Console.WriteLine("Receiver:"+j);
+        }
+
+    }
+    public class SomeClass
+    {
+        public delegate void Sender(int i);
+        public Sender sender;
+        public void HugeProcess()
+        {
+            for (int i = 0; i < 10000; i++)
+            {
+                Thread.Sleep(5000);  ///it will sleep for 5 sec
+                sender(i);
+            }
+        }
+    }
+
+here 1 delegate and 1 function
+
+multicast delegate:
+
+1 delegate and multiple functions i can attach
+
+
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Main Method Starts");
+            SomeClass x = new SomeClass();
+            //attaching the function Receiver to delegate
+            x.sender += Receiver;
+            x.sender = null;
+            x.sender += Receiver1;
+            x.sender += Receiver2;
+            x.sender -= Receiver1;
+           
+            Thread t = new Thread(new ThreadStart(x.HugeProcess));
+            t.Start();
+            Console.WriteLine("Main Method Ends");
+            Console.ReadLine();
+        }
+        static void Receiver(int j)
+        {
+            Console.WriteLine("Receiver:"+j);
+        }
+        static void Receiver1(int j)
+        {
+            Console.WriteLine("Receiver1:" + j);
+        }
+        static void Receiver2(int j)
+        {
+            Console.WriteLine("Receiver2:" + j);
+        }
+
+    }
+    public class SomeClass
+    {
+        public delegate void Sender(int i);
+        public Sender sender;
+        public void HugeProcess()
+        {
+            for (int i = 0; i < 10000; i++)
+            {
+                Thread.Sleep(5000);  ///it will sleep for 5 sec
+                sender(i);
+            }
+        }
+    }
+
+
+here you're subscribing to multiple functions
+also you allowed to change the result from publishier
+so somebody can marks delegate to null also
+
+
+
+to stop above behaviour  mark delegate object as event
+
+ public event Sender sender;
+
+
+ static void Main(string[] args)
+        {
+            Console.WriteLine("Main Method Starts");
+            SomeClass x = new SomeClass();
+            //attaching the function Receiver to delegate
+            //subscribing
+            x.sender += Receiver;
+	    //you're now allowed to say null  because delegate is event
+            x.sender = null;    
+            x.sender += Receiver1;
+            x.sender += Receiver2;
+            //unsubscring
+            x.sender -= Receiver1;
+           
+            Thread t = new Thread(new ThreadStart(x.HugeProcess));
+            t.Start();
+            Console.WriteLine("Main Method Ends");
+            Console.ReadLine();
+        }
+        static void Receiver(int j)
+        {
+            Console.WriteLine("Receiver:"+j);
+        }
+        static void Receiver1(int j)
+        {
+            Console.WriteLine("Receiver1:" + j);
+        }
+        static void Receiver2(int j)
+        {
+            Console.WriteLine("Receiver2:" + j);
+        }
+
+    }
+    public class SomeClass
+    {
+        public delegate void Sender(int i);
+        public event Sender sender;
+        public void HugeProcess()
+        {
+            for (int i = 0; i < 10000; i++)
+            {
+                Thread.Sleep(5000);  ///it will sleep for 5 sec
+                sender(i);
+            }
+        }
+    }
+
+
+Summary:
+
+delegates is meant for callbacks
+
+your singlecast delegate is converted to multicast delegate
+using += and -=
+
++= subscribing
+-= unsubscribing
+
+In multicast delegate,client can manipulte the result like 
+it can set the result as null
+
+In multicast delegete,your delegate becomes naked one.
+
+EVENT - is PURE Publihser and Subscriber model
+
+EVENT is encapsulation over delegates.
+
+
+
+
+

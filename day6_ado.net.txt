@@ -1,0 +1,14 @@
+ADO.NET using Console APP C#
+
+step 1 : Download and install SQL server 2019
+
+step 2: open SQL Server 2019 and say connect
+
+step 3: create console application in vs 2019 and select project 
+
+	as .NET FWK 
+[Note: Dont select .NET Core because ther you need to manuall install
+   package System.Data.SqlClient]
+
+
+step 4: preapre connection string
